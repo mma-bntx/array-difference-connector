@@ -1,0 +1,232 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Array Operations Connector",
+    "description": "Performs set operations on arrays such as 'except' to filter elements"
+  },
+  "host": "api.example.com",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/array/except": {
+      "post": {
+        "summary": "Array Except - Strings",
+        "description": "Returns all elements from the first array that are not present in the second array (string comparison)",
+        "operationId": "ArrayExceptStrings",
+        "x-ms-visibility": "important",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "array1",
+                "array2"
+              ],
+              "properties": {
+                "array1": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "x-ms-summary": "First Array",
+                  "description": "The array to filter from (A)"
+                },
+                "array2": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "x-ms-summary": "Second Array",
+                  "description": "Elements to exclude from first array (B)"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "x-ms-summary": "Result Array",
+                  "description": "All elements from array1 that are not in array2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/array/except-numbers": {
+      "post": {
+        "summary": "Array Except - Numbers",
+        "description": "Returns all elements from the first array that are not present in the second array (numeric comparison)",
+        "operationId": "ArrayExceptNumbers",
+        "x-ms-visibility": "important",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "array1",
+                "array2"
+              ],
+              "properties": {
+                "array1": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "x-ms-summary": "First Array",
+                  "description": "The array to filter from (A)"
+                },
+                "array2": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "x-ms-summary": "Second Array",
+                  "description": "Elements to exclude from first array (B)"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "x-ms-summary": "Result Array",
+                  "description": "All elements from array1 that are not in array2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/array/except-objects": {
+      "post": {
+        "summary": "Array Except - Objects",
+        "description": "Returns all objects from the first array that do not have matching field values in the second array",
+        "operationId": "ArrayExceptObjects",
+        "x-ms-visibility": "important",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "array1",
+                "fieldNameA",
+                "array2",
+                "fieldNameB"
+              ],
+              "properties": {
+                "array1": {
+                  "type": "string",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "x-ms-summary": "First Array",
+                  "description": "Array of objects to filter from"
+                },
+                "fieldNameA": {
+                  "type": "string",
+                  "x-ms-summary": "Field Name in Array A",
+                  "description": "The field name in array1 to compare on (e.g., 'id')"
+                },
+                "array2": {
+                  "type": "string",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "x-ms-summary": "Second Array",
+                  "description": "Array of objects to exclude from"
+                },
+                "fieldNameB": {
+                  "type": "string",
+                  "x-ms-summary": "Field Name in Array B",
+                  "description": "The field name in array2 to compare on (e.g., 'systemid')"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  },
+                  "x-ms-summary": "Result Array",
+                  "description": "All objects from array1 whose fieldNameA value is not found in array2's fieldNameB values"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  }
+}
+
